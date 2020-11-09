@@ -1,0 +1,45 @@
+.LoginPage{
+  background: var(--main-color);
+}
+.loginContainer{
+  background: var(--main-white-background);
+  width: 55em;
+  border-radius:1.25em;
+  padding:2em;
+  position:relative;
+}
+.loginContainer .align-items-center .col + .col {
+  border-left: solid 1px #c4c4c4;
+}
+
+.loginContainerLoading *{
+  opacity: 0.875;
+}
+
+.loginContainerMobile{
+  background: var(--main-white-background);
+  width: 100%;
+  padding:1em;
+}
+.loginContainerMobile h3{
+  cursor:pointer;
+}
+.loginContainerLoad{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+}
+
+.loginLoadSymbol{
+  width:4em;
+  height:4em;
+}
+
+/* Medium devices (tablets, less than 992px) */
+@media (max-width: 991px) {
+  .loginContainer {
+    width:100%;
+  }
+}
