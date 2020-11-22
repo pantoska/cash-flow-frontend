@@ -68,143 +68,136 @@
 </template>
 
 <script>
-  import Key from 'vue-material-design-icons/Key'
-  import At from 'vue-material-design-icons/At'
-  import UserController from '@/assets/js/UserController'
-  import router from '@/router'
+import Key from 'vue-material-design-icons/Key'
+import At from 'vue-material-design-icons/At'
+import UserController from '@/assets/js/UserController'
+import router from '@/router'
 
-  export default {
-    name: 'RegisterForm',
-    components: {
-      Key,
-      At
-    },
-    data () {
-      return {
-        validationRegEmail: null,
-        validationRegPassword: null,
-        validationRegUsername: null,
-        validationRegResult: null,
-        validationRegResultTxt: '',
-        validationRegPasswordText: '',
-        alertNotEqual: 'Hasła się nie zgadzają!',
-        alertComplexityToLow: 'Hasło powinno mieć 5 - 30 znaków, zawierać conajmniej 1 dużą literę, małą literę, ' +
+export default {
+  name: 'RegisterForm',
+  components: {
+    Key,
+    At
+  },
+  data () {
+    return {
+      validationRegEmail: null,
+      validationRegPassword: null,
+      validationRegUsername: null,
+      validationRegResult: null,
+      validationRegResultTxt: '',
+      validationRegPasswordText: '',
+      alertNotEqual: 'Hasła się nie zgadzają!',
+      alertComplexityToLow: 'Hasło powinno mieć 5 - 30 znaków, zawierać conajmniej 1 dużą literę, małą literę, ' +
           'cyfrę i znak specjalny (!@#%&,.?)',
-        regEmail: '',
-        regRepEmail: '',
-        regPassword: '',
-        regRepPassword: '',
-        regUsername: ''
-      }
-    },
-    methods: {
-      validateEmail () {
-        if (this.regEmail.length < 3 || this.regEmail.length > 30) {
+      regEmail: '',
+      regRepEmail: '',
+      regPassword: '',
+      regRepPassword: '',
+      regUsername: ''
+    }
+  },
+  methods: {
+    validateEmail () {
+      if (this.regEmail.length < 3 || this.regEmail.length > 30) {
+        this.validationRegEmail = false
+        return false
+      } else {
+        if (this.regEmail !== this.regRepEmail) {
           this.validationRegEmail = false
           return false
-        } else {
-          if (this.regEmail !== this.regRepEmail) {
-            this.validationRegEmail = false
-            return false
-          }
-          this.validationRegEmail = true
-          return true
         }
-      },
-      validatePassword () {
-        // (?=.*[!@#$%^&*()_+=,./?;:|{}])
-        // (?=.*[!@#\$%\^&\*,.?])
-        const regexPass = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#%&,.?*\\-])(?=.{5,30})')
-        if (!regexPass.test(this.regPassword)) {
-          this.validationRegPassword = false
-          this.validationRegPasswordText = this.alertComplexityToLow
-          return false
-        } else {
-          if (this.regPassword !== this.regRepPassword) {
-            this.validationRegPassword = false
-            this.validationRegPasswordText = this.alertNotEqual
-            return false
-          }
-
-          this.validationRegPasswordText = ''
-          this.validationRegPassword = true
-          return true
-        }
-      },
-      validateUsername () {
-        if (this.regUsername.length < 3 || this.regUsername.length > 30) {
-          this.validationRegUsername = false
-          return false
-        } else {
-          this.validationRegUsername = true
-          return true
-        }
-      },
-      validateAll () {
-        return this.validateEmail() && this.validatePassword() && this.validateUsername()
-      },
-      addNewUser (event) {
-        event.preventDefault()
-        this.animationControl(true)
-        if (this.validateAll()) {
-          const result = UserController.createNewUser(this.regEmail, this.regPassword, this.regUsername)
-          return result.then(result => {
-            if (result === 1) {
-              const loginResultAPI = UserController.login(this.regEmail, this.regPassword)
-
-              loginResultAPI.then(loginResult => {
-                if (loginResult === 1) {
-                  router.push({ name: 'Dashboard' })
-                  this.animationControl(false)
-                  return true
-                } else {
-                  this.validationRegResult = false
-                  this.validationRegResultTxt = 'Błąd zewnętrzny!! Poprawnie utworzono konto, a nie można zalogować!'
-                  this.animationControl(false)
-                  return false
-                }
-              })
-            } else if (result === 0) {
-              this.validationRegResult = false
-              this.validationRegResultTxt = 'Podany użytkownik istnieje!'
-              this.animationControl(false)
-              return false
-            } else {
-              this.validationRegResult = false
-              this.validationRegResultTxt = 'Błąd zewnętrzny!'
-              this.animationControl(false)
-              return false
-            }
-          })
-        } else {
-          this.animationControl(false)
-          return false
-        }
-      },
-      animationControl (event) {
-        this.$emit('loadingAnimation', event)
+        this.validationRegEmail = true
+        return true
       }
     },
-    watch: {
-      regPassword (val) {
-        if (this.validationRegPassword !== null) {
-          this.validatePassword()
+    validatePassword () {
+      // (?=.*[!@#$%^&*()_+=,./?;:|{}])
+      // (?=.*[!@#\$%\^&\*,.?])
+      const regexPass = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#%&,.?+*\\-])(?=.{5,30})')
+      if (!regexPass.test(this.regPassword)) {
+        this.validationRegPassword = false
+        this.validationRegPasswordText = this.alertComplexityToLow
+        return false
+      } else {
+        if (this.regPassword !== this.regRepPassword) {
+          this.validationRegPassword = false
+          this.validationRegPasswordText = this.alertNotEqual
+          return false
         }
-      },
-      regRepPassword (val) {
-        this.validatePassword()
-      },
-      regEmail (val) {
-        if (this.validationRegEmail !== null) {
-          this.validateEmail()
-        }
-      },
-      regRepEmail (val) {
-        this.validateEmail()
+
+        this.validationRegPasswordText = ''
+        this.validationRegPassword = true
+        return true
+      }
+    },
+    validateUsername () {
+      if (this.regUsername.length < 3 || this.regUsername.length > 30) {
+        this.validationRegUsername = false
+        return false
+      } else {
+        this.validationRegUsername = true
+        return true
+      }
+    },
+    validateAll () {
+      return this.validateEmail() && this.validatePassword() && this.validateUsername()
+    },
+    addNewUser (event) {
+      event.preventDefault()
+      if (this.validateAll()) {
+        const result = UserController.createNewUser(this.regEmail, this.regPassword, this.regUsername)
+        return result.then(result => {
+          console.log(result)
+
+          if (result === 1) {
+            const loginResultAPI = UserController.login(this.regEmail, this.regPassword)
+
+            loginResultAPI.then(loginResult => {
+              if (loginResult === 1) {
+                router.push({ name: 'Dashboard' })
+                return true
+              } else {
+                this.validationRegResult = false
+                this.validationRegResultTxt = 'Błąd zewnętrzny!! Poprawnie utworzono konto, a nie można zalogować!'
+                return false
+              }
+            })
+          } else if (result === 0) {
+            this.validationRegResult = false
+            this.validationRegResultTxt = 'Podany użytkownik istnieje!'
+            return false
+          } else {
+            this.validationRegResult = false
+            this.validationRegResultTxt = 'Błąd zewnętrzny!'
+            return false
+          }
+        })
+      } else {
+        return false
       }
     }
+  },
+  watch: {
+    regPassword (val) {
+      if (this.validationRegPassword !== null) {
+        this.validatePassword()
+      }
+    },
+    regRepPassword (val) {
+      this.validatePassword()
+    },
+    regEmail (val) {
+      if (this.validationRegEmail !== null) {
+        this.validateEmail()
+      }
+    },
+    regRepEmail (val) {
+      this.validateEmail()
+    }
   }
-  // TODO add information after login
+}
+
 </script>
 
 <style scoped>

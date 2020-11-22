@@ -11,10 +11,10 @@
       </b-row>
       <b-row class="align-items-center">
         <b-col class="pr-4">
-          <LoginForm @loadingAnimation="handleAnimationLoading"/>
+          <LoginForm @clicked="clickedLogin"/>
         </b-col>
         <b-col class="pl-4">
-          <RegisterForm @loadingAnimation="handleAnimationLoading"/>
+          <RegisterForm/>
         </b-col>
       </b-row>
       <div class="loginContainerLoad d-flex justify-content-center align-items-center"
@@ -28,29 +28,27 @@
 </template>
 
 <script>
-  import Key from 'vue-material-design-icons/Key'
-  import At from 'vue-material-design-icons/At'
-  import LoginForm from '@/components/login/LoginForm'
-  import RegisterForm from '@/components/login/RegisterForm'
+import Key from 'vue-material-design-icons/Key'
+import At from 'vue-material-design-icons/At'
+import LoginForm from '@/components/login/LoginForm'
+import RegisterForm from '@/components/login/RegisterForm'
 
-  export default {
-    name: 'LoginContainerComputer',
-    components: {
-      RegisterForm,
-      LoginForm,
-      Key,
-      At
-    },
-    props:['isLoading'],
-    methods: {
-      clickedLogin (event) {
-        this.$emit('clicked', true)
-      },
-      handleAnimationLoading (state) {
-        this.$emit('loadingAnimation', state)
-      }
+export default {
+  name: 'LoginContainerComputer',
+  components: {
+    RegisterForm,
+    LoginForm,
+    Key,
+    At
+  },
+  props:['isLoading'],
+  methods: {
+    clickedLogin (event) {
+      this.$emit('clicked', true)
     }
   }
+}
+
 </script>
 
 <style scoped>

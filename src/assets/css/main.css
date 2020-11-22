@@ -1,0 +1,16 @@
+/* Variables block */
+:root {
+    --main-color:coral;
+    --main-white-background:#EFEFEF;
+}
+/* End variables block */
+
+
+html, body{
+    padding:0;
+    margin:0;
+}
+
+#app{
+
+}

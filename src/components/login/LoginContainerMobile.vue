@@ -8,82 +8,73 @@
             Zarejestruj</h4>
         </div>
         <b-row class="mt-5">
-          <LoginForm v-if="tab === 0" @loadingAnimation="handleAnimationLoading"/>
-          <RegisterForm v-else @loadingAnimation="handleAnimationLoading"/>
+          <LoginForm v-if="tab === 0"/>
+          <RegisterForm v-else/>
         </b-row>
       </b-col>
-    </div>
-    <div class="loginContainerLoad d-flex justify-content-center align-items-center"
-         v-if="isLoading">
-      <div class="spinner-border loginLoadSymbol" role="status">
-        <span class="sr-only">Loading...</span>
-      </div>
     </div>
   </div>
 </template>
 
 <script>
-  import LoginForm from '@/components/login/LoginForm'
-  import RegisterForm from '@/components/login/RegisterForm'
+import LoginForm from '@/components/login/LoginForm'
+import RegisterForm from '@/components/login/RegisterForm'
 
-  export default {
-    name: 'LoginContainerMobile',
-    components: {
-      RegisterForm,
-      LoginForm
-    },
-    data () {
-      return {
-        tab: 0,
-        loginTab: true,
-        registerTab: false
-      }
-    },
-    props:['isLoading'],
-    methods: {
-      changeTab (to) {
-        if (to === 0) {
-          this.tab = 0
-          this.loginTab = true
-          this.registerTab = false
-        } else {
-          this.tab = 1
-          this.loginTab = false
-          this.registerTab = true
-        }
-      },
-      handleAnimationLoading (state) {
-        this.$emit('loadingAnimation', state)
+export default {
+  name: 'LoginContainerMobile',
+  components: {
+    RegisterForm,
+    LoginForm
+  },
+  data () {
+    return {
+      tab: 0,
+      loginTab: true,
+      registerTab: false
+    }
+  },
+  methods: {
+    changeTab (to) {
+      if (to === 0) {
+        this.tab = 0
+        this.loginTab = true
+        this.registerTab = false
+      } else {
+        this.tab = 1
+        this.loginTab = false
+        this.registerTab = true
       }
     }
   }
+}
 </script>
 
 <style scoped>
-  h4 {
-    margin: 0;
-    width: 6em;
-    height: 2.3em;
-    padding: 0.5em;
-    background: var(--main-white-background);
-  }
+h4 {
+  margin: 0;
+  width: 6em;
+  height: 2.3em;
+  padding: 0.5em;
+  background: var(--main-white-background);
+}
 
-  #tabs {
-    border-bottom: solid 1px #CCC;
-    height: 3.6em;
-  }
+#tabs {
+  border-bottom: solid 1px #CCC;
+  height: 3.6em;
+}
 
-  #register-button {
-    float: right;
-  }
+#register-button {
+  float: right;
+}
 
-  #login-button {
-    float: left;
-  }
+#login-button {
+  float: left;
+}
 
-  .selected-buttun {
-    height: 2.4em;
-    border: solid 1px #CCC;
-    border-bottom: none;
-  }
+.selected-buttun {
+  height: 2.4em;
+  border: solid 1px #CCC;
+  border-bottom: none;
+}
+
 </style>

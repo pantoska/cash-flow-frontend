@@ -30,62 +30,57 @@
 </template>
 
 <script>
-  // TODO delete imports
-  import Key from 'vue-material-design-icons/Key'
-  import At from 'vue-material-design-icons/At'
-  import UserController from '@/assets/js/UserController'
-  import router from '@/router'
+import Key from 'vue-material-design-icons/Key'
+import At from 'vue-material-design-icons/At'
+import UserController from '@/assets/js/UserController'
+import router from '@/router'
 
-  export default {
-    name: 'LoginForm',
-    components: {
-      Key,
-      At
+export default {
+  name: 'LoginForm',
+  components: {
+    Key,
+    At
+  },
+  data () {
+    return {
+      loginValidationMessage: 'Ełoł cepie!',
+      loginValidation: null,
+      loginEmail: '',
+      loginPassword: ''
+    }
+  },
+  methods: {
+    loginClick (event) {
+      this.$emit('clicked', true)
     },
-    data () {
-      return {
-        loginValidationMessage: 'Ełoł cepie!',
-        loginValidation: null,
-        loginEmail: '',
-        loginPassword: ''
-      }
-    },
-    methods: {
-      loginClick (event) {
-        this.$emit('loadingAnimation', event)
-      },
-      loginEvent (event) {
-        event.preventDefault()
-        this.loginClick(true)
-        if (this.loginEmail.length < 3 || this.loginEmail.length > 30 ||
+    loginEvent (event) {
+      event.preventDefault()
+      if (this.loginEmail.length < 3 || this.loginEmail.length > 30 ||
           this.loginPassword.length < 3 || this.loginPassword.length > 30) {
+        this.loginValidation = false
+        this.loginValidationMessage = 'Podane hasło, lub email mają nie odpowiednią długość (3 - 30)'
+        return false
+      }
+      const result = UserController.login(this.loginEmail, this.loginPassword)
+      return result.then(result => {
+        if (result === 1) {
+          router.push({ name: 'Dashboard' })
+          return true
+        }
+        if (result === -1) {
           this.loginValidation = false
-          this.loginValidationMessage = 'Podane hasło, lub email mają nie odpowiednią długość (3 - 30)'
-          this.loginClick(false)
+          this.loginValidationMessage = 'Podano błędne dane logowania'
+          return false
+        } else {
+          this.loginValidation = false
+          this.loginValidationMessage = 'Błąd zewnętrzny!'
           return false
         }
-        const result = UserController.login(this.loginEmail, this.loginPassword)
-        return result.then(result => {
-          if (result === 1) {
-            router.push({ name: 'Dashboard' })
-            this.loginClick(false)
-            return true
-          }
-          if (result === -1) {
-            this.loginValidation = false
-            this.loginValidationMessage = 'Podano błędne dane logowania'
-            this.loginClick(false)
-            return false
-          } else {
-            this.loginValidation = false
-            this.loginValidationMessage = 'Błąd zewnętrzny!'
-            this.loginClick(false)
-            return false
-          }
-        })
-      }
+      })
     }
   }
+}
+
 </script>
 
 <style scoped>
