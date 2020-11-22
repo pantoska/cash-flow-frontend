@@ -1,14 +1,20 @@
 <template>
   <b-container fluid class="LoginPage min-vh-100 p-0">
-    <h1>Page</h1>
+    <LoginContainerComputer v-if="windowWidth > 768" @loadingAnimation="handleLoadingAnimation"
+                            v-bind:is-loading="isLoading"/>
+    <LoginContainerMobile v-else @loadingAnimation="handleLoadingAnimation" :is-loading="isLoading"/>
   </b-container>
 </template>
 
 <script>
+  import LoginContainerComputer from '@/components/login/LoginContainerComputer'
+  import LoginContainerMobile from '@/components/login/LoginContainerMobile'
 
   export default {
     name: 'LoginPage',
     components: {
+      LoginContainerMobile,
+      LoginContainerComputer
     },
     data () {
       return {
@@ -24,7 +30,11 @@
       handleResize () {
         this.windowWidth = window.innerWidth
       },
+      handleLoadingAnimation (event) {
+        this.isLoading = event === true
 
+        // TODO run animation
+      }
     }
   }
 </script>

@@ -17,6 +17,12 @@ const routes = [
   },
 
   {
+    path: '/denied',
+    name: 'Denied',
+    component: () => import(/* webpackChunkName: "denied" */ '@/views/Error401')
+  },
+
+  {
     path: '*',
     name: 'PageNotFound',
     component: () => import(/* webpackChunkName: "error404" */ '@/views/Error404')
