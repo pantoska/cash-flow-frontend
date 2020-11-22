@@ -1,0 +1,35 @@
+#app, #app-dashboard{
+  height:100vh;
+  max-height:100vh;
+  width:100vw;
+  max-width:100vw;
+}
+
+.component-box{
+  background: var(--main-white-background);
+  border-radius: 0.175em;
+}
+
+.money-account-box{
+  border-radius:0.5em;
+  width:13em;
+}
+.money-account-container{
+}
+.money-account-box p{
+  margin:0;
+  padding:0;
+  text-align: left;
+  font-weight: bold;
+}
+.money-account-box p+p{
+  font-weight: normal;
+}
+
+
+
+#new-entry-modal .modal-body{
+  padding-top:0;
+  padding-bottom: 0;
+}
+
