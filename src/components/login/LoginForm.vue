@@ -30,7 +30,6 @@
 </template>
 
 <script>
-// TODO delete imports
 import Key from 'vue-material-design-icons/Key'
 import At from 'vue-material-design-icons/At'
 import UserController from '@/assets/js/UserController'
@@ -81,6 +80,7 @@ export default {
     }
   }
 }
+
 </script>
 
 <style scoped>

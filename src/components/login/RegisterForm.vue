@@ -197,7 +197,7 @@ export default {
     }
   }
 }
-// TODO add information after login
+
 </script>
 
 <style scoped>

@@ -3,6 +3,7 @@
     <LoginContainerComputer v-if="windowWidth > 768" @clicked="handleClick"
                             v-bind:is-loading="isLoading"/>
     <LoginContainerMobile v-else/>
+
   </b-container>
 </template>
 
@@ -32,6 +33,7 @@ export default {
       this.isLoading = !this.isLoading
       setTimeout(() => { this.isLoading = !this.isLoading }, 1000)
       // TODO run animation
+
     }
   }
 }
