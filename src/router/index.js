@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import UserController from '@/assets/js/UserController'
 
 
 Vue.use(VueRouter)
@@ -34,6 +35,44 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   // base: '/dist/',
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (to.meta.requiresAuth) {
+      if (UserController.isLoggedIn()) {
+        if (to.matched.some(record => record.meta.requiresAdmin)) {
+          if (to.meta.requiresAdmin) {
+            if (UserController.userIsAdmin()) {
+              next()
+            } else {
+              next({
+                path: '/denied',
+                query: { redirect: to.fullPath }
+              })
+            }
+          } else {
+            next()
+          }
+        } else {
+          next()
+        }
+      } else {
+        next({
+          path: '/denied',
+          query: { redirect: to.fullPath }
+        })
+      }
+    } else {
+      next()
+    }
+  } else {
+    if (to.name === 'Login' && UserController.isLoggedIn()) {
+      next({ name: 'Dashboard' })
+    } else {
+      next()
+    }
+  }
 })
 
 
