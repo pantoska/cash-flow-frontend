@@ -1,0 +1,81 @@
+/*$topSpace:0.5em;*/
+
+.entry-list-container ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.entry-box {
+  width: 100%;
+  padding: 0.25em 0.2em;
+}
+.entry-list-container li + li {
+  /*border-top:2px solid rgba(0, 0, 0, 0.05);*/
+}
+.entry-box:hover {
+  background-color: rgba(0, 0, 0, 0.015);
+}
+.entry-category-icon-box {
+  min-width: 2.85em;
+  margin-top: 0.5em;
+}
+.entry-category-icon-box div {
+  display: block;
+  width: 1.9em;
+  line-height: 1.9em;
+  font-size: 1.35em;
+  font-weight: bold;
+  border-radius: 50%;
+}
+.entry-data-box {
+  text-align: left;
+  padding: 0 0.85em;
+  width: 100%;
+}
+.entry-data-box p {
+  margin: 0;
+  padding: 0;
+}
+.entry-small {
+  padding-top: 0.1em;
+}
+.entry-small .entry-account-name {
+  font-size: 0.85em;
+  margin-bottom: 0.25em;
+}
+.entry-small .entry-category-name {
+  font-weight: bold;
+}
+
+.entry-menu-button {
+  margin-top: 0.5em;
+  width: 2em;
+  padding-top: 0.3em;
+}
+.entry-menu-button div {
+  background: none;
+  width: 2em;
+  height: 2em;
+  padding: 0.2em 0 0.2em 0.125em;
+  border-radius: 50%;
+  text-align: center;
+  cursor: pointer;
+}
+.entry-menu-button div:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  box-shadow: 0 0 0.1em 0.1em rgba(0, 0, 0, 0.05);
+}
+.entry-amount {
+  text-align: right;
+  float: right;
+  width: 10em;
+  line-height: 3.3em;
+  font-weight: bold;
+}
+.income .entry-amount {
+  color: #0f0;
+}
+.outcome .entry-amount {
+  color: #f00;
+}
